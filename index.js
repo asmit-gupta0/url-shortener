@@ -16,7 +16,15 @@ app.listen(PORT, () => {
 });
 
 const DB = process.env.MONGODB_URI;
-connectMongo(DB);
+async function startServer() {
+    try {
+        await connectMongo(DB);
+        console.log("MongoDB Connected");
+    } catch (error) {
+        console.error("MongoDB Connection Error:", error);
+    }
+}
+startServer();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,4 +37,4 @@ app.use("/user", userRoute);
 app.use("/", staticRoute);
 
 app.set("view engine", "ejs");
-app.set("views", path.resolve("./views"));
+app.set("views", path.join(__dirname, "views"));

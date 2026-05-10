@@ -9,7 +9,7 @@ const userRoute = require("./routes/user");
 const { checkForAuthentication, restrictTo } = require("./middlewares/auth");
 
 const app = express();
-const PORT = 8001;
+const PORT = process.env.PORT || 8001;
 
 app.listen(PORT, () => {
   console.log(`Server Started at PORT: ${PORT}`);
